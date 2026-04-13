@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lliamresolutions — Voir clair. Décider juste.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #07112A;
+    --navy-mid: #0E1F45;
+    --navy-light: #162952;
+    --blue-accent: #2563EB;
+    --blue-soft: #3B82F6;
+    --white: #FFFFFF;
+    --gray-50: #F8F9FC;
+    --gray-100: #EEF1F8;
+    --gray-200: #D8DEF0;
+    --gray-400: #8892B0;
+    --gray-600: #4A5578;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--white);
+    color: var(--navy);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.25rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(7,17,42,0.06);
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--navy);
+    text-decoration: none;
+  }
+
+  .nav-cta {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--navy);
+    text-decoration: none;
+    padding: 0.6rem 1.4rem;
+    border: 1px solid rgba(7,17,42,0.2);
+    border-radius: 2rem;
+    transition: all 0.25s ease;
+  }
+
+  .nav-cta:hover {
+    background: var(--navy);
+    color: var(--white);
+    border-color: var(--navy);
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    padding: 9rem 3rem 6rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    background: linear-gradient(160deg, var(--gray-50) 0%, #EDF1FF 60%, #E8EFFF 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blue-accent);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.1s forwards;
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    color: var(--navy);
+    margin-bottom: 1.75rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--blue-accent);
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--gray-600);
+    max-width: 440px;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.35s forwards;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--navy);
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 0.9rem 2rem;
+    border-radius: 2rem;
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s forwards;
+  }
+
+  .btn-primary:hover {
+    background: var(--blue-accent);
+    transform: translateY(-1px);
+    box-shadow: 0 12px 40px rgba(37,99,235,0.25);
+  }
+
+  .btn-primary svg { transition: transform 0.2s; }
+  .btn-primary:hover svg { transform: translateX(3px); }
+
+  /* HERO VISUAL */
+  .hero-visual {
+    position: relative;
+    height: 520px;
+    opacity: 0;
+    animation: fadeIn 1.2s 0.4s forwards;
+  }
+
+  .card {
+    position: absolute;
+    background: var(--white);
+    border-radius: 16px;
+    border: 1px solid rgba(7,17,42,0.07);
+    box-shadow: 0 4px 24px rgba(7,17,42,0.06), 0 1px 4px rgba(7,17,42,0.04);
+    padding: 1.5rem;
+    transition: transform 0.3s ease;
+  }
+
+  .card-main {
+    width: 320px;
+    top: 40px; right: 20px;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .card-main .card-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 1rem;
+  }
+
+  .metric-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .metric-value {
+    font-family: var(--serif);
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--navy);
+    line-height: 1;
+  }
+
+  .metric-delta {
+    font-size: 0.75rem;
+    color: #10B981;
+    font-weight: 500;
+  }
+
+  .metric-sub {
+    font-size: 0.78rem;
+    color: var(--gray-400);
+    margin-bottom: 1.25rem;
+  }
+
+  .sparkline {
+    height: 48px;
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+  }
+
+  .bar {
+    flex: 1;
+    border-radius: 3px 3px 0 0;
+    background: linear-gradient(180deg, #3B82F6 0%, rgba(59,130,246,0.3) 100%);
+    transition: height 0.3s;
+  }
+
+  .card-insight {
+    width: 220px;
+    top: 220px; right: 280px;
+    animation: float 7s 1s ease-in-out infinite;
+  }
+
+  .insight-icon {
+    width: 36px; height: 36px;
+    background: #EEF2FF;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .insight-icon svg { width: 18px; height: 18px; }
+
+  .card-insight p {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--gray-600);
+  }
+
+  .card-insight strong {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 0.25rem;
+  }
+
+  .card-steps {
+    width: 200px;
+    top: 360px; right: 60px;
+    animation: float 5s 2s ease-in-out infinite;
+  }
+
+  .step-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    font-size: 0.82rem;
+    color: var(--gray-600);
+  }
+
+  .step-item:not(:last-child) {
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .step-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--blue-accent);
+    flex-shrink: 0;
+  }
+
+  .step-dot.done { background: #10B981; }
+
+  .card-tag {
+    width: 160px;
+    top: 20px; right: 360px;
+    padding: 1rem 1.25rem;
+    animation: float 8s 0.5s ease-in-out infinite;
+  }
+
+  .tag-number {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: var(--navy);
+  }
+
+  .tag-label {
+    font-size: 0.72rem;
+    color: var(--gray-400);
+    letter-spacing: 0.05em;
+  }
+
+  /* SECTIONS COMMON */
+  section { padding: 7rem 3rem; }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blue-accent);
+    margin-bottom: 1.25rem;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--navy);
+    max-width: 640px;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title em { font-style: italic; color: var(--blue-accent); }
+
+  .section-body {
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.85;
+    color: var(--gray-600);
+    max-width: 560px;
+  }
+
+  /* PROBLEM */
+  .problem { background: var(--navy); }
+
+  .problem .section-label { color: rgba(59,130,246,0.8); }
+
+  .problem .section-title {
+    color: var(--white);
+    max-width: 700px;
+  }
+
+  .problem .section-body { color: rgba(255,255,255,0.55); max-width: 600px; }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 4rem;
+  }
+
+  .problem-card {
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 2rem;
+    background: rgba(255,255,255,0.03);
+    transition: background 0.3s;
+  }
+
+  .problem-card:hover { background: rgba(255,255,255,0.06); }
+
+  .problem-card .number {
+    font-family: var(--serif);
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.2);
+    margin-bottom: 1rem;
+  }
+
+  .problem-card h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .problem-card p {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.45);
+  }
+
+  /* INSIGHT */
+  .insight { background: var(--gray-50); }
+
+  .insight-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .insight-quote {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    font-weight: 300;
+    line-height: 1.35;
+    color: var(--navy);
+    font-style: italic;
+  }
+
+  .insight-quote::before {
+    content: '"';
+    font-size: 4rem;
+    color: var(--blue-accent);
+    opacity: 0.3;
+    display: block;
+    line-height: 1;
+    margin-bottom: -0.5rem;
+  }
+
+  /* SOLUTION */
+  .solution-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 4rem;
+  }
+
+  .solution-card {
+    border: 1px solid var(--gray-200);
+    border-radius: 16px;
+    padding: 2rem;
+    background: var(--white);
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+
+  .solution-card:hover {
+    box-shadow: 0 16px 48px rgba(7,17,42,0.08);
+    transform: translateY(-4px);
+  }
+
+  .solution-icon {
+    width: 44px; height: 44px;
+    background: var(--gray-100);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .solution-card h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+  }
+
+  .solution-card p {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--gray-600);
+  }
+
+  /* HOW IT WORKS */
+  .how { background: var(--white); }
+
+  .steps-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+    margin-top: 4rem;
+  }
+
+  .step-list { list-style: none; }
+
+  .step-list li {
+    display: flex;
+    gap: 1.5rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .step-list li:first-child { padding-top: 0; }
+
+  .step-num {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--gray-200);
+    min-width: 2.5rem;
+    line-height: 1;
+  }
+
+  .step-content h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 0.4rem;
+  }
+
+  .step-content p {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--gray-600);
+  }
+
+  .steps-visual {
+    position: relative;
+    height: 340px;
+    background: linear-gradient(135deg, var(--navy-mid), var(--navy));
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2.5rem;
+  }
+
+  .steps-visual::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+  }
+
+  .flow-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .flow-chip {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.7);
+    white-space: nowrap;
+  }
+
+  .flow-chip.active {
+    background: rgba(59,130,246,0.2);
+    border-color: rgba(59,130,246,0.4);
+    color: #93C5FD;
+  }
+
+  .flow-arrow {
+    color: rgba(255,255,255,0.2);
+    font-size: 0.8rem;
+  }
+
+  /* PROJECTS */
+  .projects { background: var(--gray-50); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 4rem;
+  }
+
+  .project-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 20px;
+    padding: 2.5rem;
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+
+  .project-card:hover {
+    box-shadow: 0 20px 60px rgba(7,17,42,0.08);
+    transform: translateY(-4px);
+  }
+
+  .project-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue-accent);
+    background: #EEF2FF;
+    border-radius: 2rem;
+    padding: 0.3rem 0.8rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .project-card h3 {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+  }
+
+  .project-card p {
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: var(--gray-600);
+  }
+
+  /* DIFF */
+  .diff { background: var(--white); }
+
+  .diff-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--gray-200);
+    border: 1px solid var(--gray-200);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-top: 4rem;
+  }
+
+  .diff-item {
+    background: var(--white);
+    padding: 2rem 1.75rem;
+  }
+
+  .diff-item h3 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+  }
+
+  .diff-item p {
+    font-size: 0.82rem;
+    line-height: 1.65;
+    color: var(--gray-600);
+  }
+
+  /* CTA */
+  .cta-section {
+    background: var(--navy);
+    text-align: center;
+    padding: 9rem 3rem;
+  }
+
+  .cta-section .section-label { color: rgba(59,130,246,0.7); }
+
+  .cta-section h2 {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 1rem;
+  }
+
+  .cta-section p {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .btn-white {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--white);
+    color: var(--navy);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.9rem 2.2rem;
+    border-radius: 2rem;
+    transition: all 0.3s;
+  }
+
+  .btn-white:hover {
+    background: #EEF2FF;
+    transform: translateY(-1px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 2rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  footer .logo {
+    font-family: var(--serif);
+    font-size: 1rem;
+    color: rgba(255,255,255,0.4);
+  }
+
+  footer p {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 4rem; }
+    .hero-visual { display: none; }
+    section { padding: 5rem 1.5rem; }
+    .problem-grid, .solution-grid { grid-template-columns: 1fr; }
+    .insight-layout, .steps-layout, .projects-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .diff-grid { grid-template-columns: 1fr 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Lliamresolutions</a>
+  <a href="#contact" class="nav-cta">Demander un diagnostic</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-label">Systèmes intelligents · Clarté décisionnelle</div>
+    <h1>Voir clair.<br><em>Décider juste.</em></h1>
+    <p class="hero-sub">Les entreprises prennent souvent leurs décisions sans comprendre pleinement leur réalité. Nous construisons les systèmes qui changent ça.</p>
+    <a href="#contact" class="btn-primary">
+      Demander un diagnostic
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+
+  <div class="hero-visual">
+    <!-- Card principale -->
+    <div class="card card-main">
+      <div class="card-label">Vue d'ensemble · Temps réel</div>
+      <div class="metric-row">
+        <span class="metric-value">94.2</span>
+        <span class="metric-delta">↑ +12.4%</span>
+      </div>
+      <div class="metric-sub">Score de clarté opérationnelle</div>
+      <div class="sparkline">
+        <div class="bar" style="height:30%"></div>
+        <div class="bar" style="height:45%"></div>
+        <div class="bar" style="height:38%"></div>
+        <div class="bar" style="height:60%"></div>
+        <div class="bar" style="height:55%"></div>
+        <div class="bar" style="height:72%"></div>
+        <div class="bar" style="height:65%"></div>
+        <div class="bar" style="height:85%"></div>
+        <div class="bar" style="height:78%"></div>
+        <div class="bar" style="height:95%"></div>
+      </div>
+    </div>
+
+    <!-- Card insight -->
+    <div class="card card-insight">
+      <div class="insight-icon">
+        <svg viewBox="0 0 18 18" fill="none" stroke="#2563EB" stroke-width="1.5">
+          <circle cx="9" cy="9" r="7"/><path d="M9 6v3l2 2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <strong>Signal détecté</strong>
+      <p>3 zones d'inefficacité identifiées — impact estimé visible en 48h</p>
+    </div>
+
+    <!-- Card steps -->
+    <div class="card card-steps">
+      <div class="step-item">
+        <span class="step-dot done"></span>
+        <span>Diagnostic complété</span>
+      </div>
+      <div class="step-item">
+        <span class="step-dot done"></span>
+        <span>Système déployé</span>
+      </div>
+      <div class="step-item">
+        <span class="step-dot"></span>
+        <span>Clarté en cours…</span>
+      </div>
+    </div>
+
+    <!-- Mini tag -->
+    <div class="card card-tag">
+      <div class="tag-number">7</div>
+      <div class="tag-label">décisions éclairées / sem.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="section-inner">
+    <div class="section-label reveal">Le problème</div>
+    <h2 class="section-title reveal" style="color:white">L'illusion du contrôle est le vrai risque.<br><em style="color:rgba(59,130,246,0.7)">Pas le manque de données.</em></h2>
+    <p class="section-body reveal">La plupart des organisations disposent de plus d'informations que jamais. Et pourtant, les décisions stratégiques restent floues, lentes, ou fondées sur des intuitions mal informées.</p>
+
+    <div class="problem-grid reveal">
+      <div class="problem-card">
+        <div class="number">01</div>
+        <h3>Trop de données, pas de sens</h3>
+        <p>L'accumulation de dashboards crée une fausse impression de maîtrise sans réelle compréhension de la situation.</p>
+      </div>
+      <div class="problem-card">
+        <div class="number">02</div>
+        <h3>Des décisions sans ancrage</h3>
+        <p>Sans modèle de réalité fiable, les choix stratégiques s'appuient sur des hypothèses jamais vérifiées.</p>
+      </div>
+      <div class="problem-card">
+        <div class="number">03</div>
+        <h3>La complexité comme confort</h3>
+        <p>Les systèmes complexes donnent l'illusion d'un contrôle sophistiqué, tout en masquant ce qui compte vraiment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSIGHT -->
+<section class="insight">
+  <div class="section-inner">
+    <div class="insight-layout">
+      <div>
+        <div class="section-label reveal">Notre conviction</div>
+        <blockquote class="insight-quote reveal">
+          Meilleures décisions ne vient pas de plus de données — mais d'une compréhension plus juste de sa réalité.
+        </blockquote>
+      </div>
+      <div class="reveal">
+        <p class="section-body" style="margin-bottom:1.5rem">La clarté n'est pas une question de volume d'information. C'est une question de structure, de signal, et de modèle mental.</p>
+        <p class="section-body">Nous aidons les entreprises à construire cette clarté — pas à gérer davantage de complexité.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section style="background:white; padding:7rem 3rem;">
+  <div class="section-inner">
+    <div class="section-label reveal">Ce que nous faisons</div>
+    <h2 class="section-title reveal">Des systèmes qui <em>révèlent</em> la réalité</h2>
+    <p class="section-body reveal">Nous concevons des systèmes intelligents sur mesure qui simplifient la complexité, alignent les équipes, et transforment la compréhension en action.</p>
+
+    <div class="solution-grid reveal">
+      <div class="solution-card">
+        <div class="solution-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#2563EB" stroke-width="1.5"><circle cx="11" cy="11" r="9"/><path d="M11 7v4l3 3" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Révéler</h3>
+        <p>Identifier ce qui structure réellement votre réalité opérationnelle, au-delà des indicateurs de surface.</p>
+      </div>
+      <div class="solution-card">
+        <div class="solution-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#2563EB" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="12" y="3" width="7" height="7" rx="2"/><rect x="3" y="12" width="7" height="7" rx="2"/><path d="M15.5 12v7M12 15.5h7" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Simplifier</h3>
+        <p>Transformer la complexité en modèles clairs, actionnables et compris par toutes les parties prenantes.</p>
+      </div>
+      <div class="solution-card">
+        <div class="solution-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#2563EB" stroke-width="1.5"><path d="M4 16l5-5 4 4 6-8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Décider</h3>
+        <p>Fournir le socle de clarté nécessaire pour que chaque décision s'appuie sur une compréhension solide.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="section-inner">
+    <div class="section-label reveal">Comment ça fonctionne</div>
+    <h2 class="section-title reveal">Trois étapes vers la <em>clarté</em></h2>
+
+    <div class="steps-layout">
+      <ul class="step-list reveal">
+        <li>
+          <span class="step-num">1</span>
+          <div class="step-content">
+            <h3>Diagnostic</h3>
+            <p>Nous cartographions votre réalité opérationnelle — décisions clés, angles morts, flux d'information, et zones d'incertitude.</p>
+          </div>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <div class="step-content">
+            <h3>Système</h3>
+            <p>Nous concevons un système intelligent adapté à votre contexte : modèles, signaux, interfaces — rien de superflu.</p>
+          </div>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <div class="step-content">
+            <h3>Clarté</h3>
+            <p>Vos équipes disposent enfin d'une compréhension partagée et fiable pour décider avec confiance.</p>
+          </div>
+        </li>
+      </ul>
+
+      <div class="steps-visual reveal">
+        <div class="flow-row">
+          <div class="flow-chip">Données brutes</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-chip active">Diagnostic</div>
+        </div>
+        <div class="flow-row" style="padding-left:2rem">
+          <div class="flow-chip active">Modélisation</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-chip">Système</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-chip">Signaux</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-chip active">Clarté ✓</div>
+        </div>
+        <div style="margin-top:1.5rem; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,0.08);">
+          <div style="font-size:0.72rem; color:rgba(255,255,255,0.3); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.75rem">Résultat type</div>
+          <div style="font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:300; color:white; line-height:1.3">Décisions alignées<br>en moins de 3 semaines</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects">
+  <div class="section-inner">
+    <div class="section-label reveal">Projets</div>
+    <h2 class="section-title reveal">La clarté appliquée à des <em>réalités concrètes</em></h2>
+
+    <div class="projects-grid reveal">
+      <div class="project-card">
+        <span class="project-tag">Clarté économique</span>
+        <h3>Webakey</h3>
+        <p>Un système de gestion de recettes qui révèle la réalité économique de chaque production — coûts réels, marges exactes, décisions tarifaires fondées sur des données fiables.</p>
+      </div>
+      <div class="project-card">
+        <span class="project-tag">Connexion humaine</span>
+        <h3>Sporly</h3>
+        <p>Une plateforme qui utilise le sport comme vecteur de connexion humaine authentique — réduisant la distance sociale en s'appuyant sur la réalité des comportements et des besoins de proximité.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFF -->
+<section class="diff">
+  <div class="section-inner">
+    <div class="section-label reveal">Notre différence</div>
+    <h2 class="section-title reveal">La clarté d'abord. <em>Toujours.</em></h2>
+
+    <div class="diff-grid reveal">
+      <div class="diff-item">
+        <h3>Simplicité sur complexité</h3>
+        <p>Nous refusons les systèmes inutilement complexes. Chaque élément doit servir la compréhension, pas l'impressionner.</p>
+      </div>
+      <div class="diff-item">
+        <h3>Réalité sur hypothèse</h3>
+        <p>Nos systèmes s'ancrent dans votre contexte réel — pas dans des modèles génériques ou des best practices générales.</p>
+      </div>
+      <div class="diff-item">
+        <h3>Moins d'outils, plus de sens</h3>
+        <p>Nous n'ajoutons pas de couches technologiques. Nous retirons ce qui masque pour ne garder que ce qui éclaire.</p>
+      </div>
+      <div class="diff-item">
+        <h3>Clarté avant tout</h3>
+        <p>Notre critère de succès n'est pas la sophistication du système — c'est la qualité des décisions qu'il rend possibles.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section" id="contact">
+  <div class="section-label">Prochaine étape</div>
+  <h2>Prêt à voir ce qui<br>fonctionne vraiment ?</h2>
+  <p>Un diagnostic, une conversation — et une clarté que vous n'aurez plus envie de perdre.</p>
+  <a href="mailto:hello@lliamresolutions.com" class="btn-white">
+    Demander un diagnostic
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="logo">Lliamresolutions</span>
+  <p>Voir clair. Décider juste. — 2026</p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
